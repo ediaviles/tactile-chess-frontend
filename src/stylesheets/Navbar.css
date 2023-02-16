@@ -14,3 +14,17 @@
     grid-template-areas:
         "title . bars"
 }
+
+.navbar-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    height: 0;
+    width: 100vw;
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+}
+
+.navbar-elements.active {
+    height: 250px;
+}
