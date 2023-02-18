@@ -1,8 +1,12 @@
 import Navbar from '../components/Navbar';
 import "../stylesheets/Homepage.css";
 import axios from "axios";
+import React, { useState } from 'react';
 
 function Homepage() {
+    const [gameId, setGameId] = useState('');
+    const [move, setMove] = useState('');
+
     return (
         <>
             <Navbar/>
@@ -13,7 +17,13 @@ function Homepage() {
                     "http://localhost:5000/seekGame"
                 )
             }}>
-                Create Game</button>
+                Create Game</button><br/>
+            <label>Game ID:</label><input onChange={(e) => {setGameId(e.target.value)}}/><br/>
+            <label>Move:</label><input onChange={(e) => {setMove(e.target.value)}}/><button onClick={async () => {
+                return axios.post(
+                    `http://localhost:5000/makeMove/${gameId}/${move}`
+                ).catch( (e) => {console.log(e)})
+            }}>Submit Move</button>
         </>
     )
 }
