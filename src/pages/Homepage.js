@@ -1,14 +1,11 @@
 import Navbar from '../components/Navbar';
 import "../stylesheets/Homepage.css";
-import axios from "axios";
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { faChess, faChartPie, faChessBoard } from "@fortawesome/free-solid-svg-icons";
 import OptionBlock from "../components/OptionBlock"
 import {useNavigate} from "react-router";
 
 function Homepage() {
-    const [gameId, setGameId] = useState('');
-    const [move, setMove] = useState('');
     const navigate = useNavigate();
 
     const navigateTo = (url) => {
@@ -22,13 +19,14 @@ function Homepage() {
             <div className={"Option2"}><OptionBlock text={"Match History"} icon={faChartPie} /></div>
             <div className={"Option3"}><OptionBlock text={"Puzzles"} icon={faChessBoard} /></div>
         </div>
+        
     )
 }
 
 export default Homepage;
 
 {/*
-            <iframe src="https://lichess.org/tv/frame?theme=brown&bg=dark" className={"test"} allowtransparency="true" frameborder="0" title={"Test"}></iframe>
+            
 */}
 {/*<button onClick={async () => {
                 await axios.post(
