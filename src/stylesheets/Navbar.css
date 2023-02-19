@@ -1,9 +1,11 @@
 .bars {
     grid-area: bars;
+    color: white;
 }
 
 .title {
     grid-area: title;
+    color: white;
 }
 
 .navbar-container {

@@ -1,0 +1,28 @@
+.optionContainer {
+    background: linear-gradient(180deg, #E0E0E0 0%, rgba(138, 154, 155, 0.738293) 99.94%, rgba(170, 204, 206, 0.563282) 99.95%, rgba(64, 141, 146, 0.0253916) 99.96%, rgba(64, 141, 146, 0.0102187) 99.97%, rgba(64, 141, 146, 0) 99.98%, rgba(15, 15, 15, 0) 99.99%);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 25px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 80%;
+    grid-template-areas:
+    "text ."
+    ". icon";
+}
+
+.optionText {
+    grid-area: text;
+    justify-self: start;
+    align-self: center;
+    margin: 5% 0 0 10%;
+    font-size: 18px;
+}
+
+.optionIcon {
+    grid-area: icon;
+    justify-self: center;
+    align-self: end;
+}
