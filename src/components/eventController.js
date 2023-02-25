@@ -9,7 +9,7 @@ export async function eventController(data) {
         case 'gameStart': {
             // once a game is started we want to open a new event stream to listen for chess moves being made
             //TODO
-            let gid = data.game.gameId;
+            let gid = data.game.fullId;
             fetchData('game start', {gameId: gid}).then(r => {console.log("game stream started")})
             break;
         }
