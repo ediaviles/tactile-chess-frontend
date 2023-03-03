@@ -7,12 +7,13 @@ import {fetchData} from "../components/ndJSONStreamReader";
 
 function ChessBoardTest() {
     const [game, setGame] = useState(new Chess());
-    const [move, setMove] = useState('')
+    const [liveState, setLiveState] = useState(null);
+    const [move, setMove] = useState('');
     const [gameId, setGameId] = useState(useParams());
-    const [lm, setLm] = useState('')
+    const [lm, setLm] = useState('');
 
-    useEffect(() => {
-        handleGameStart()
+    useEffect( () => {
+         handleGameStart()
     }, []) // This will start a stream of the moves on page load
 
     useEffect(() => {
@@ -20,14 +21,20 @@ function ChessBoardTest() {
             submitMove(lm)
         }
     }, [lm])
+/*
+    useEffect(() => {
+        if (liveState )
+        const copy = new Chess(liveState.fen)
+        setGame(copy)
+    }, [liveState])*/
+
     const startStream = () => {
-        console.log("start stream called")
         fetchData("stream events", null).then(r => {});
     }
 
     const handleGameStart = () => {
         if (Object.keys(gameId).length !== 0) {
-            fetchData('stream game', {gameId: gameId.id, setLm: setLm, lm: lm}).then(r => {})
+            fetchData('stream game', {gameId: gameId.id, setLiveState: setLiveState, setLm: setLm }).then(r => {})
         }
     }
 
@@ -48,9 +55,9 @@ function ChessBoardTest() {
             //illegal move TODO need to fix this logic
             if (move === 1) {
                 return false;
-            } else {
+            } /*else {
                 eventController({type: "makeMove", gameId: gameId.id, move: src+dest}).then(r => {})
-            }
+            }*/
         }
     }
 
@@ -63,42 +70,24 @@ function ChessBoardTest() {
         })
     }
 
-    //Perform an action when a piece is dropped by a user
-/*    async function onDrop(source, target) {
-        let move = null;
-        await safeGameMutate((game) => {
-            move = game.move({
-                from: source,
-                to: target,
-                promotion: 'q'
-            })
-        })
-        //illegal move
-        if (move === null) {
-            return false;
+    const renderChess = (fen) => {
+        if (fen !== null ) {
+            game.load(fen)
+            return(
+                <Chessboard position={game.fen()}/>
+            )
         }
-        //valid move
-        /!*setTimeout( ()=> {
-            const possibleMove = game.moves();
-            console.log(possibleMove)
-            //exit if the game is over
-            if (game.isGameOver() || game.isDraw() || possibleMove.length === 0) return;
+        else {
+            return(
+                <></>
+            )
+        }
 
-            const randomIndex = Math.floor(Math.random() * possibleMove.length);
-            //play random move
-            safeGameMutate((game) => {
-                game.move(possibleMove[randomIndex]);
-            })
-        }, 200);*!/
-        return true;
-    }*/
-
+    }
 
     return (
         <>
-            <Chessboard
-            position={game.fen()}
-            />
+            {renderChess((liveState !== null) ? liveState.fen: null )}
             <input onChange={(evt) => {setGameId(evt.target.value)}} type={"text"}/><button onClick={() => {startStream()}}>Start Stream</button>
             <input onChange={(evt) => {setMove(evt.target.value)}} type={"text"}/><button onClick={() => {setLm(move)}}>Submit</button>
         </>

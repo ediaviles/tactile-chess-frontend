@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-chessboard": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-fen-chess-board": "^1.0.1",
     "react-fetch": "^0.0.9",
     "react-hooks-global-state": "^2.1.0",
     "react-router": "^6.8.1",

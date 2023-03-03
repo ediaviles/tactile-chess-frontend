@@ -30,9 +30,9 @@ export async function eventController(data) {
         default: {
             // Treat default as a move made
             //TODO read the move and update that move onto the board
-            if ("lm" in data && data.lm !== data.gameLm) {
+            if ("setLm" in data && "lm" in data && "fen" in data) {
                 const newMove = data.lm
-                data.setLm(newMove)
+                //data.setLm(newMove)
             }
             break;
         }

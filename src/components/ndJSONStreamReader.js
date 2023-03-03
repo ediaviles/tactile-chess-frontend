@@ -55,9 +55,13 @@ export const fetchData = async (command, data) => {
         for (const message of messages) {
             try {
                 const newData = JSON.parse(message);
-                if (data !== null && "setLm" in data) {
+                console.log(newData)
+                if (data !== null && "id" in newData && "turns" in newData && "fen" in newData && "setLiveState" in data) {
+                    data.setLiveState(newData)
+                    console.log("calling setLiveState")
+                }
+                else if (data !== null && "lm" in newData && "fen" in newData && "setLm" in data) {
                     newData.setLm = data.setLm;
-                    newData.gameLm = data.lm
                 }
                 await eventController(newData)
             } catch (error) {
