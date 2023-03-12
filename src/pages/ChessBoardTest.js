@@ -66,7 +66,7 @@ function ChessBoardTest() {
     return (
         <>
             <Chessboard position={game.fen()}/>
-            <input onChange={(evt) => {setGameId(evt.target.value)}} type={"text"}/><button onClick={() => {startStream()}}>Start Stream</button>
+            <button onClick={() => {startStream()}}>Start Stream</button>
         </>
     )
 }
