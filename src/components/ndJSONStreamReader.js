@@ -78,13 +78,6 @@ export const fetchData = async (command, data) => {
                     //TODO update our moves made
                     data.setMovesMade(newData.moves.split(" "))
                 }
-                /*if (data !== null && "id" in newData && "turns" in newData && "fen" in newData && "setLiveState" in data) {
-                    data.setLiveState(newData)
-                    console.log("calling setLiveState")
-                }*/
-                /*if (data !== null && "lm" in newData && "fen" in newData && "setLm" in data) {
-                    newData.setLm = data.setLm;
-                }*/
                 await eventController(newData)
             } catch (error) {
                 console.error(error);
