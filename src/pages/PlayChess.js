@@ -33,13 +33,29 @@ function PlayChess() {
                 })
             })
     }
+    const createOnlineSeek = () => {
+        fetchData('stream events', null).then(r => {})
+        fetch(`https://lichess.org/api/board/seek`,
+            {
+                headers: headers,
+                method: 'POST',
+                mode: 'cors',
+                body: formData({
+                    rated: false,
+                    time: 180,
+                    increment: 30,
+                    variant: "standard",
+                    color: "white"
+                })
+            })
+    }
 
     return (
         <div className={"playChessContainer"}>
             <Navbar className={"Navbar"} />
             <div className={"playOption1"} onClick={() => {
                 //TODO implement seek logic for live users
-
+                createOnlineSeek()
             }}>
                 <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>
             <div className={"playOption2"} onClick={() => {
