@@ -10,17 +10,41 @@ function ChessBoardTest() {
     const [liveState, setLiveState] = useState(null);
     const [move, setMove] = useState('');
     const [gameId, setGameId] = useState(useParams());
-    const [lm, setLm] = useState('');
+    const [movesMade, setMovesMade] = useState(null);
+    const [liveFen, setLiveFen] = useState(null)
+    const [movesIndex, setMovesIndex] = useState(null);
+
 
     useEffect( () => {
          handleGameStart()
     }, []) // This will start a stream of the moves on page load
 
+
     useEffect(() => {
-        if (lm.length === 4){
-            submitMove(lm)
+        if (liveFen !== null) {
+            safeGameMutate((game) => {
+                game.load(liveFen)
+            })
         }
-    }, [lm])
+    }, [liveFen])
+
+    //Use effect that handles making the latests moves
+    useEffect(() => {
+        if (liveFen !== null && movesMade !== null){
+            for (let i = movesIndex; i < movesMade.length; i++) {
+                let src = movesMade[i].substring(0, 2);
+                let dest = movesMade[i].substring(2, 4);
+                safeGameMutate((game) => {
+                    game.move({
+                        from: src,
+                        to: dest,
+                        promotion: 'q'
+                    })
+                })
+            }
+            setMovesIndex(movesMade.length)
+        }
+    }, [movesMade])
 /*
     useEffect(() => {
         if (liveState )
@@ -34,7 +58,7 @@ function ChessBoardTest() {
 
     const handleGameStart = () => {
         if (Object.keys(gameId).length !== 0) {
-            fetchData('stream game', {gameId: gameId.id, setLiveState: setLiveState, setLm: setLm }).then(r => {})
+            fetchData('stream game', {gameId: gameId.id, setMovesIndex: setMovesIndex, setMovesMade: setMovesMade, setLiveFen: setLiveFen }).then(r => {})
         }
     }
 
@@ -87,9 +111,10 @@ function ChessBoardTest() {
 
     return (
         <>
-            {renderChess((liveState !== null) ? liveState.fen: null )}
+            {/*{renderChess(liveFen)}*/}
+            <Chessboard position={game.fen()}/>
             <input onChange={(evt) => {setGameId(evt.target.value)}} type={"text"}/><button onClick={() => {startStream()}}>Start Stream</button>
-            <input onChange={(evt) => {setMove(evt.target.value)}} type={"text"}/><button onClick={() => {setLm(move)}}>Submit</button>
+            <input onChange={(evt) => {setMove(evt.target.value)}} type={"text"}/><button onClick={() => {}}>Submit</button>
         </>
     )
 }

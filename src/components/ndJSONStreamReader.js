@@ -1,5 +1,6 @@
 import {eventController} from "./eventController";
 import {useNavigate} from "react-router";
+import {Chess} from "chess.js";
 
 const headers = {
     Authorization: 'Bearer ' + 'lip_Zt6rLGHWhZj8qcaeTaLG'
@@ -23,7 +24,7 @@ export const fetchData = async (command, data) => {
         }
         case 'stream game': {
             const gameId = data.gameId
-            response = await fetch(`https://lichess.org/api/stream/game/${gameId}`, {
+            response = await fetch(`https://lichess.org/api/board/game/stream/${gameId}`, {
                 headers: headers,
                 method: 'GET',
                 mode: 'cors'
@@ -55,14 +56,35 @@ export const fetchData = async (command, data) => {
         for (const message of messages) {
             try {
                 const newData = JSON.parse(message);
-                console.log(newData)
-                if (data !== null && "id" in newData && "turns" in newData && "fen" in newData && "setLiveState" in data) {
+                if ("type" in newData && newData.type === "gameFull") {
+                    //TODO if we see a gameFull update our liveState
+                    //first get array of moves
+                    const movesMade = newData.state.moves.split(" ");
+                    const chess = new Chess();
+                    if (movesMade[0] !== '') {
+                        for (let i = 0; i < movesMade.length; i++) {
+                            chess.move(movesMade[i])
+                        }
+                        data.setMovesMade(movesMade)
+                        data.setMovesIndex(movesMade.length)
+                    } else {
+                        data.setMovesMade([])
+                        data.setMovesIndex(0)
+                    }
+                    const fen = chess.fen();
+                    data.setLiveFen(fen)
+                }
+                else if ("type" in newData && newData.type === "gameState") {
+                    //TODO update our moves made
+                    data.setMovesMade(newData.moves.split(" "))
+                }
+                /*if (data !== null && "id" in newData && "turns" in newData && "fen" in newData && "setLiveState" in data) {
                     data.setLiveState(newData)
                     console.log("calling setLiveState")
-                }
-                else if (data !== null && "lm" in newData && "fen" in newData && "setLm" in data) {
+                }*/
+                /*if (data !== null && "lm" in newData && "fen" in newData && "setLm" in data) {
                     newData.setLm = data.setLm;
-                }
+                }*/
                 await eventController(newData)
             } catch (error) {
                 console.error(error);
