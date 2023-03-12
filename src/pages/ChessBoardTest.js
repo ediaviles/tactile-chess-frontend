@@ -11,7 +11,9 @@ function ChessBoardTest() {
     const [movesMade, setMovesMade] = useState(null);
     const [liveFen, setLiveFen] = useState(null)
     const [movesIndex, setMovesIndex] = useState(null);
-
+    const headers = {
+        Authorization: 'Bearer ' + 'lip_Zt6rLGHWhZj8qcaeTaLG'
+    }
 
     useEffect( () => {
          handleGameStart()
@@ -54,6 +56,18 @@ function ChessBoardTest() {
         }
     }
 
+    const resignGame = async () => {
+        let response = await fetch(`https://lichess.org/api/board/game/${gameId.id}/resign`, {
+            headers: headers,
+            method: 'POST',
+            mode: 'cors'
+        })
+        console.log(response)
+        if (response.ok) {
+            window.location.pathname = `/play`
+        }
+    }
+
     //Perform a function on the game state
     function safeGameMutate(modify) {
         setGame(  (g) => {
@@ -67,6 +81,7 @@ function ChessBoardTest() {
         <>
             <Chessboard position={game.fen()}/>
             <button onClick={() => {startStream()}}>Start Stream</button>
+            <button onClick={() => {resignGame()}}>Resign Game</button>
         </>
     )
 }
