@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import React, {} from 'react';
+import React, {useEffect, useState} from 'react';
 import { faChessQueen, faChessKing } from "@fortawesome/free-solid-svg-icons";
 import OptionBlock from "../components/OptionBlock";
 import "../stylesheets/PlayChess.css"
@@ -7,6 +7,11 @@ import axios from "axios";
 import {fetchData} from "../components/ndJSONStreamReader";
 
 function PlayChess() {
+    const [games, setGames] = useState([])
+
+    useEffect( () => {
+        //fetchCurrentGames()
+    }, [])
     const headers = {
         Authorization: 'Bearer ' + 'lip_Zt6rLGHWhZj8qcaeTaLG'
     };
@@ -15,6 +20,15 @@ function PlayChess() {
         for (const k of Object.keys(data)) formData.append(k, data[k]);
         return formData;
     };
+
+    const fetchCurrentGames = async () => {
+        //TODO figure out how to get users live games
+        let response = await fetch('https://lichess.org/api/account/playing', {
+            headers: headers,
+            method: 'GET'
+        })
+        console.log(response.body)
+    }
 
     const createAISeek = () => {
         //First start a stream
@@ -51,19 +65,19 @@ function PlayChess() {
     }
 
     return (
-        <div className={"playChessContainer"}>
-            <Navbar className={"Navbar"} />
-            <div className={"playOption1"} onClick={() => {
-                //TODO implement seek logic for live users
-                createOnlineSeek()
-            }}>
-                <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>
-            <div className={"playOption2"} onClick={() => {
-                //TODO implement seek logic for Lichess AI
-                createAISeek()
-            }}>
-                <OptionBlock text={"Play Computer"} icon={faChessKing}/></div>
-        </div>
+        <>
+            <div className={"playChessContainer"}>
+                <Navbar className={"Navbar"} />
+                <div className={"playOption1"} onClick={() => {
+                    createOnlineSeek()
+                }}>
+                    <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>
+                <div className={"playOption2"} onClick={() => {
+                    createAISeek()
+                }}>
+                    <OptionBlock text={"Play Computer"} icon={faChessKing}/></div>
+            </div>
+        </>
     )
 }
 

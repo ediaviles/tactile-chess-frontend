@@ -7,7 +7,7 @@ import {fetchData} from "../components/ndJSONStreamReader";
 
 function ChessBoardTest() {
     const [game, setGame] = useState(new Chess());
-    const [gameId, setGameId] = useState(useParams());
+    const [gameId, _] = useState(useParams());
     const [movesMade, setMovesMade] = useState(null);
     const [liveFen, setLiveFen] = useState(null)
     const [movesIndex, setMovesIndex] = useState(null);
@@ -62,7 +62,6 @@ function ChessBoardTest() {
             method: 'POST',
             mode: 'cors'
         })
-        console.log(response)
         if (response.ok) {
             window.location.pathname = `/play`
         }
