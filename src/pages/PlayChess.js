@@ -10,7 +10,7 @@ function PlayChess() {
     const [games, setGames] = useState([])
 
     useEffect( () => {
-        //fetchCurrentGames()
+        fetchCurrentGames()
     }, [])
     const headers = {
         Authorization: 'Bearer ' + 'lip_Zt6rLGHWhZj8qcaeTaLG'
@@ -21,13 +21,12 @@ function PlayChess() {
         return formData;
     };
 
-    const fetchCurrentGames = async () => {
+    const fetchCurrentGames = () => {
         //TODO figure out how to get users live games
-        let response = await fetch('https://lichess.org/api/account/playing', {
-            headers: headers,
-            method: 'GET'
-        })
-        console.log(response.body)
+        let response = axios.get('https://lichess.org/api/account/playing', {
+            headers: headers
+        }).then((r) => {setGames([...r.data.nowPlaying])})
+        console.log(games)
     }
 
     const createAISeek = () => {
