@@ -26,7 +26,6 @@ function PlayChess() {
         let response = axios.get('https://lichess.org/api/account/playing', {
             headers: headers
         }).then((r) => {setGames([...r.data.nowPlaying])})
-        console.log(games)
     }
 
     const createAISeek = () => {
@@ -67,10 +66,17 @@ function PlayChess() {
         <>
             <div className={"playChessContainer"}>
                 <Navbar className={"Navbar"} />
-                <div className={"playOption1"} onClick={() => {
+                {
+                    games.map((game) => (
+                        <div className={"playOption1"} onClick={() => {window.location.pathname=`/test/${game.fullId}`}}>
+                            <OptionBlock text={"Current Live Game"} icon={faChessQueen}/>
+                        </div>
+                    ))
+                }
+                {/*<div className={"playOption1"} onClick={() => {
                     createOnlineSeek()
                 }}>
-                    <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>
+                    <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>*/}
                 <div className={"playOption2"} onClick={() => {
                     createAISeek()
                 }}>
