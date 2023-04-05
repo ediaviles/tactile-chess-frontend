@@ -62,25 +62,25 @@ function PlayChess() {
             })
     }
 
+    const renderGames = () => {
+        if (games.length === 0) {
+            return <div className={"noCurrentGames"}>
+                        <p>No current live games.</p>
+                    </div>
+        } else {
+            return games.map((game) => (
+                <div className={"playOption1"} onClick={() => {window.location.pathname=`/test/${game.fullId}`}}>
+                    <OptionBlock text={"Current Live Game"} icon={faChessQueen}/>
+                </div>
+            ))
+        }
+    }
+
     return (
         <>
             <div className={"playChessContainer"}>
                 <Navbar className={"Navbar"} />
-                {
-                    games.map((game) => (
-                        <div className={"playOption1"} onClick={() => {window.location.pathname=`/test/${game.fullId}`}}>
-                            <OptionBlock text={"Current Live Game"} icon={faChessQueen}/>
-                        </div>
-                    ))
-                }
-                {/*<div className={"playOption1"} onClick={() => {
-                    createOnlineSeek()
-                }}>
-                    <OptionBlock text={"Play Online"} icon={faChessQueen} /></div>*/}
-                <div className={"playOption2"} onClick={() => {
-                    createAISeek()
-                }}>
-                    <OptionBlock text={"Play Computer"} icon={faChessKing}/></div>
+                {renderGames()}
             </div>
         </>
     )

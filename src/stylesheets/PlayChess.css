@@ -17,6 +17,13 @@
         "Navbar"
         "."
         "Option1"
-        "."
-        "Option2"
+        "NoCurrentGames"
+}
+
+.noCurrentGames {
+    grid-area: NoCurrentGames;
+    justify-content: center;
+    margin: auto;
+    font-size: 24px;
+    color: white;
 }

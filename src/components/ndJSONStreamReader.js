@@ -77,6 +77,7 @@ export const fetchData = async (command, data) => {
                 else if ("type" in newData && newData.type === "gameState") {
                     //TODO update our moves made
                     data.setMovesMade(newData.moves.split(" "))
+                    console.log(newData.moves.split(" "))
                 }
                 await eventController(newData)
             } catch (error) {

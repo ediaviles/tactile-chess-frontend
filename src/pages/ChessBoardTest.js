@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {useParams} from "react-router";
 import {eventController} from "../components/eventController";
 import {fetchData} from "../components/ndJSONStreamReader";
+import "../stylesheets/ChessBoard.css"
 
 function ChessBoardTest() {
     const [game, setGame] = useState(new Chess());
@@ -11,6 +12,8 @@ function ChessBoardTest() {
     const [movesMade, setMovesMade] = useState(null);
     const [liveFen, setLiveFen] = useState(null)
     const [movesIndex, setMovesIndex] = useState(null);
+    const [whiteMoves, setWhiteMoves] = useState([]);
+    const [blackMoves, setBlackMoves] = useState([])
     const headers = {
         Authorization: 'Bearer ' + 'lip_Zt6rLGHWhZj8qcaeTaLG'
     }
@@ -41,6 +44,13 @@ function ChessBoardTest() {
                         promotion: 'q'
                     })
                 })
+                if (i%2 === 0) {
+                    whiteMoves.push(movesMade[i])
+                    setWhiteMoves(whiteMoves)
+                } else {
+                    blackMoves.push(movesMade[i])
+                    setBlackMoves(blackMoves)
+                }
             }
             setMovesIndex(movesMade.length)
         }
@@ -67,6 +77,12 @@ function ChessBoardTest() {
         }
     }
 
+    const renderMoves = (startingIndex) => {
+        for (let i = startingIndex; i < movesMade.length; i = i + 2){
+            return <p>{movesMade[i]}</p>
+        }
+    }
+
     //Perform a function on the game state
     function safeGameMutate(modify) {
         setGame(  (g) => {
@@ -77,11 +93,26 @@ function ChessBoardTest() {
     }
 
     return (
-        <>
-            <Chessboard position={game.fen()}/>
-            <button onClick={() => {startStream()}}>Start Stream</button>
-            <button onClick={() => {resignGame()}}>Resign Game</button>
-        </>
+        <div className={"chessPageContainer"}>
+            <div className={"chessboard-container"}>
+                <Chessboard position={game.fen()}/>
+            </div>
+            <div className={"gameInfo-container"}>
+                <h5 className={"white"}>White</h5>
+                <h5 className={"black"}>Black</h5>
+                <div className={"white-moves-container"}>
+                    {whiteMoves.map((move) => {
+                        return <p>{move}</p>
+                    })}
+                </div>
+                <div className={"black-moves-container"}>
+                    {blackMoves.map((move) => {
+                        return <p>{move}</p>
+                        })}
+                </div>
+            </div>
+        </div>
+        
     )
 }
 

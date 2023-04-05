@@ -24,19 +24,3 @@ function Homepage() {
 }
 
 export default Homepage;
-
-{/*
-            
-*/}
-{/*<button onClick={async () => {
-                await axios.post(
-                    "http://localhost:80/seekGame"
-                )
-            }}>
-                Create Game</button><br/>
-            <label>Game ID:</label><input onChange={(e) => {setGameId(e.target.value)}}/><br/>
-            <label>Move:</label><input onChange={(e) => {setMove(e.target.value)}}/><button onClick={async () => {
-                return axios.post(
-                    `http://localhost:80/makeMove/${gameId}/${move}`
-                ).catch( (e) => {console.log(e)})
-            }}>Submit Move</button>*/}
