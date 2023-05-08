@@ -1,7 +1,7 @@
 .chessboard-container {
     grid-area: chessboard;
-    max-height: 425px;
-    max-width: 425px;
+    max-height: 500px;
+    max-width: 500px;
     justify-content: center;
     margin: auto;
     padding-top: 10px;
@@ -34,6 +34,10 @@
 }
 
 .chessPageContainer {
+    margin-right: 20%;
+    margin-left: 20%;
+    height: 100vh;
+    background-color:grey;
     grid-template-areas:
         ""
         "chessboard"

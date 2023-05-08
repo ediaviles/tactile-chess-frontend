@@ -16,8 +16,6 @@ function Homepage() {
         <div className={"pageContainer"}>
             <Navbar className={"Navbar"} />
             <div className={"Option1"} onClick={() => navigateTo("/play")}><OptionBlock text={"Play Chess"} icon={faChess} /></div>
-            <div className={"Option2"}><OptionBlock text={"Match History"} icon={faChartPie} /></div>
-            <div className={"Option3"}><OptionBlock text={"Puzzles"} icon={faChessBoard} /></div>
         </div>
         
     )

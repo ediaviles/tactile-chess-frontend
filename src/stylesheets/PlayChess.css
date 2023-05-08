@@ -11,6 +11,10 @@
 }
 
 .playChessContainer {
+    width: 60vw;
+    margin:auto;
+    background-color:grey;
+    height:100vh;
     display: grid;
     grid-template-rows: 10vh 2vh 23vh 2vh 23vh;
     grid-template-areas:

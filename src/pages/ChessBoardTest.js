@@ -5,6 +5,8 @@ import {useParams} from "react-router";
 import {eventController} from "../components/eventController";
 import {fetchData} from "../components/ndJSONStreamReader";
 import "../stylesheets/ChessBoard.css"
+import Navbar from '../components/Navbar';
+
 
 function ChessBoardTest() {
     const [game, setGame] = useState(new Chess());
@@ -94,6 +96,7 @@ function ChessBoardTest() {
 
     return (
         <div className={"chessPageContainer"}>
+            <Navbar className={"Navbar"} />
             <div className={"chessboard-container"}>
                 <Chessboard position={game.fen()}/>
             </div>

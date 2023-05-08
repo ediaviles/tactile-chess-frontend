@@ -25,14 +25,15 @@ function Navbar() {
 
     return(
         <div className={'navbar-container'} data-testid={'navbar-container'}>
-            <h3 className={'title'} onClick={() => {navigateTo("/")}}>Tactile Chess</h3>
+            {/* <h3 className={'title'} onClick={() => {navigateTo("/")}}>Tactile Chess</h3>
             <FontAwesomeIcon className={`bars`} icon={navIcon} onClick={updateShowNav}/>
             <div className={`navbar-elements ${showNav && 'active'}`}>
                 <ul>Login</ul>
                 <ul>Share ID</ul>
                 <ul>Create Account</ul>
                 <ul>Home</ul>
-            </div>
+            </div> */}
+            <h2 className={'title'} onClick={() => {navigateTo("/")}}>Tactile Chess</h2>
         </div>
     )
 }

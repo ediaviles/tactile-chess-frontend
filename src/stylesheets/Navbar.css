@@ -6,6 +6,7 @@
 .title {
     grid-area: title;
     color: white;
+    margin-left: 10%;
 }
 
 .navbar-container {
